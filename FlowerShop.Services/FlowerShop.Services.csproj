@@ -5,4 +5,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FlowerShop.Data\FlowerShop.Data.csproj" />
+    <ProjectReference Include="..\FlowerShop.Models\FlowerShop.Models.csproj" />
+  </ItemGroup>
+
 </Project>

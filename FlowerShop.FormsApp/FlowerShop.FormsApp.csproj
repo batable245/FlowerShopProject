@@ -7,4 +7,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FlowerShop.Models\FlowerShop.Models.csproj" />
+    <ProjectReference Include="..\FlowerShop.Services\FlowerShop.Services.csproj" />
+  </ItemGroup>
+
 </Project>
