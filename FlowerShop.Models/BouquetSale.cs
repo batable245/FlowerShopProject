@@ -17,5 +17,6 @@ namespace FlowerShop.Data.Models
         public int Quantity { get; set; }
         public User User { get; set; }
         public Bouquet Bouquet { get; set; }
+
     }
 }

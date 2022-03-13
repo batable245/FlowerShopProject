@@ -27,6 +27,7 @@ namespace FlowerShop.Data
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
+
         }
     }
 }

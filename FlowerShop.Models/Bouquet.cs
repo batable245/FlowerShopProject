@@ -17,5 +17,6 @@ namespace FlowerShop.Data.Models
         public string PackageDesign { get; set; }
         public virtual ICollection<BouquetSale> BouquetSales { get; set; } = new HashSet<BouquetSale>();
         public virtual ICollection<BouquetFlower> BouquetFlowers { get; set; } = new HashSet<BouquetFlower>();
+
     }
 }

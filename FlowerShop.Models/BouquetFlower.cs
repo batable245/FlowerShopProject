@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace FlowerShop.Data.Models
 {
     public class BouquetFlower
