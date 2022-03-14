@@ -7,7 +7,9 @@
         public MainService()
         {
             this.BouquetService = new BouquetService(context);
+            this.FlowerService = new FlowerService(context);
         }
         public BouquetService BouquetService { get; private set; }
+        public FlowerService FlowerService { get; private set; }
     }
 }

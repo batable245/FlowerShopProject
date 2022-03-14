@@ -14,18 +14,31 @@ namespace FlowerShop.FormsApp
     using Services;
     public partial class Form1 : Form
     {
+        internal MainService service = new MainService();
         public Form1()
         {
             InitializeComponent();
-           MainService service = new MainService();
-            dataGridView1.DataSource = service.BouquetService.GetAllBouquets();
-
+            UpdateGrid();
+        }
+        public void UpdateGrid()
+        {
+           //dataGridView1.DataSource = service.BouquetService.GetAllBouquets();
+           dataGridView1.DataSource = service.FlowerService.GetAllFlowers();        
         }
         private void dataGridView1_DataBindingComplete(object sender,DataGridViewBindingCompleteEventArgs e)
-        {
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;            
+        {           
             dataGridView1.Columns[0].Visible = false;
-            dataGridView1.AutoResizeColumns();
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<string> input = textBox1.Text.Split(',').ToList();
+            service.FlowerService.AddFlower(input[0],input[1],int.Parse(input[2]));
+            UpdateGrid();
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            service.FlowerService.DeleteFlower(textBox2.Text);
+            UpdateGrid();
         }
     }
 }
