@@ -16,29 +16,77 @@ namespace FlowerShop.Services
         {
             context = new AppDbContext();
         }
-        public void ChangePassword(string password)
+        public void ChangePassword(string username, string password)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = GetUserByUsername(username);
+                if (user == null)
+                {
+                    throw new ArgumentException("Invalid username!");
+                }
+                user.Password = password;
+                context.Users.Update(user);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void ChangeUsername(string username)
         {
-            throw new NotImplementedException();
+            //doesn't work like intended
+            try
+            {
+                User user = GetUserByUsername(username);
+                if (username != null)
+                {
+                    throw new ArgumentException("User already exists!");
+                }
+                user.Username = username;
+                context.Update(user);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public void AddBalance(string username, string balance)
+        {
+            try
+            {
+                User user = GetUserByUsername(username);
+                if (double.Parse(balance) <= 0 || user == null)
+                {
+                    //!double.TryParse(balance, out _) -> check if this is needed
+                    throw new ArgumentException("Invalid data!");
+                }
+                user.Balance += double.Parse(balance);
+                context.Users.Update(user);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        public void CreateUser(string username, string password)
+        public void CreateUser(string username, string password, string balance)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(password))
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(balance))
                 {
                     throw new ArgumentException("Invalid user data!");
                 }
 
-                User userValidation = context.Users.Where(u => u.Username == username).FirstOrDefault();
-
-                if (userValidation != null)
+                double initialBalance = double.Parse(balance);
+                if (GetUserByUsername(username) != null)
                 {
                     throw new ArgumentException("User already exists!");
                 }
@@ -46,11 +94,16 @@ namespace FlowerShop.Services
                 {
                     throw new ArgumentException("Password is too short!");
                 }
+                if (initialBalance < 0)
+                {
+                    throw new ArgumentException("Invalid balance!");
+                }
 
                 User user = new User()
                 {
                     Username = username,
                     Password = password,
+                    Balance = initialBalance,
                     Role = Role.USER,
                     RegisterDate = DateTime.Now,
                 };
@@ -88,9 +141,12 @@ namespace FlowerShop.Services
             throw new NotImplementedException();
         }
 
-        public ICollection<string> GetAllUsers()
+        public ICollection<string> GetAllUsersUsernames()
         {
-            throw new NotImplementedException();
+            return this.context.Users
+                .OrderBy(x => x.Username)
+                .Select(x => x.Username)
+                .ToList();
         }
 
         public User GetUserById(int id)
