@@ -1,4 +1,4 @@
-﻿using FlowerShop.Data.Models;
+﻿using FlowerShop.Models;
 using Microsoft.EntityFrameworkCore;
 
 

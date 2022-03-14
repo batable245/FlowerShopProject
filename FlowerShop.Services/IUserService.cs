@@ -1,4 +1,4 @@
-﻿using FlowerShop.Data.Models;
+﻿using FlowerShop.Models;
 using System.Collections.Generic;
 
 namespace FlowerShop.Services

@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlowerShop.Services
+﻿namespace FlowerShop.Services
 {
+    using Models;
+    using Data;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System;
+
     public class BouquetService : IBouquetService
     {
+        private readonly AppDbContext context;
+        public BouquetService(AppDbContext context)
+        {
+            this.context = context;
+        }
         public void AddBouquet()
         {
             throw new NotImplementedException();
@@ -23,9 +28,9 @@ namespace FlowerShop.Services
             throw new NotImplementedException();
         }
 
-        public void GetAllBouquets()
+        public ICollection<Bouquet> GetAllBouquets()
         {
-            throw new NotImplementedException();
+            return this.context.Bouquets.ToList();
         }
 
         public void RemoveFlowerFromBouquet(string flowerName, int quantity)

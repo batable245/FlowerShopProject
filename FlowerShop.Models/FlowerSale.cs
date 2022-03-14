@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace FlowerShop.Data.Models
+namespace FlowerShop.Models
 {
     public class FlowerSale
     {

@@ -1,10 +1,13 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace FlowerShop.Services
 {
+using Models;
     public interface IBouquetService
     {
-        public void GetAllBouquets();
+        public ICollection<Bouquet> GetAllBouquets();
         public void AddBouquet();
         public void UpdateBouquet();
         public void DeleteBouquet();

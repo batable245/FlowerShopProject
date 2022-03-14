@@ -1,5 +1,5 @@
 ﻿using FlowerShop.Data;
-using FlowerShop.Data.Models;
+using FlowerShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
