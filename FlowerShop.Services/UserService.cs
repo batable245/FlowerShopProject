@@ -148,10 +148,10 @@ namespace FlowerShop.Services
             throw new NotImplementedException();
         }
 
-        public ICollection<string> GetAllUsersUsernames()
+        public ICollection<string> GetAllUsersUsernames(int page = 1, int itemsPerPage = 10)
         {
             return this.context.Users
-                .OrderBy(x => x.Username)
+                .Skip((page - 1) * itemsPerPage)
                 .Select(x => x.Username)
                 .ToList();
         }

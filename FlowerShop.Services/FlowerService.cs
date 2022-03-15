@@ -12,7 +12,6 @@
         {
             this.context = context;
         }
-
         public Flower GetFlowerByName(string name)
         {
             return this.context.Flowers.FirstOrDefault(x => x.Name == name);
@@ -51,7 +50,6 @@
         {
             return this.context.Flowers.ToList();
         }
-
 #nullable enable
         public void UpdateFlower(string searchname, string? name = null,
             string? price = null, string? quantity = null)
