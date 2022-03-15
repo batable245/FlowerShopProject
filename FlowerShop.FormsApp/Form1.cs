@@ -32,6 +32,8 @@ namespace FlowerShop.FormsApp
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[4].Visible = false;
             dataGridView1.Columns[5].Visible = false;
+            dataGridView1.Width = SystemInformation.VerticalScrollBarWidth
+                + dataGridView1.RowHeadersWidth*dataGridView1.ColumnCount + 2;
         }
         private void button1_Click(object sender, EventArgs e)
         {

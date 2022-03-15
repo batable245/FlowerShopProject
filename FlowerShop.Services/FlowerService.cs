@@ -52,8 +52,8 @@
             return this.context.Flowers.ToList();
         }
 
-        
-        public void UpdateFlower(string searchname, string? name = null, 
+#nullable enable
+        public void UpdateFlower(string searchname, string? name = null,
             string? price = null, string? quantity = null)
         {
             if (string.IsNullOrWhiteSpace(searchname))
@@ -75,5 +75,6 @@
             }
             context.SaveChanges();
         }
+#nullable disable
     }
 }

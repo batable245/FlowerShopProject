@@ -39,17 +39,20 @@ namespace FlowerShop.Services
             }
         }
 
-        public void ChangeUsername(string username)
+        public void ChangeUsername(string currentUsername, string newUsername)
         {
-            //doesn't work like intended
             try
             {
-                User user = GetUserByUsername(username);
-                if (username != null)
+                if (newUsername == null || string.IsNullOrWhiteSpace(newUsername))
                 {
-                    throw new ArgumentException("User already exists!");
+                    throw new ArgumentException("Invalid username!");
                 }
-                user.Username = username;
+                if (GetUserByUsername(newUsername) != null)
+                {
+                    throw new ArgumentException("Username already exists!");
+                }
+                User user = GetUserByUsername(currentUsername);
+                user.Username = newUsername;
                 context.Update(user);
                 context.SaveChanges();
             }
