@@ -16,7 +16,7 @@ namespace FlowerShop.Services
         {
             context = new AppDbContext();
         }
-        public void ChangePassword(string username, string password)
+        public void ChangePassword(string username, string newPassword)
         {
             try
             {
@@ -25,7 +25,11 @@ namespace FlowerShop.Services
                 {
                     throw new ArgumentException("Invalid username!");
                 }
-                user.Password = password;
+                if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 4)
+                {
+                    throw new ArgumentException("Invalid password!");
+                }
+                user.Password = newPassword;
                 context.Users.Update(user);
                 context.SaveChanges();
             }
@@ -59,9 +63,8 @@ namespace FlowerShop.Services
             try
             {
                 User user = GetUserByUsername(username);
-                if (double.Parse(balance) <= 0 || user == null)
+                if (!double.TryParse(balance, out _) || string.IsNullOrWhiteSpace(username) || double.Parse(balance) <= 0)
                 {
-                    //!double.TryParse(balance, out _) -> check if this is needed
                     throw new ArgumentException("Invalid data!");
                 }
                 user.Balance += double.Parse(balance);
@@ -80,7 +83,8 @@ namespace FlowerShop.Services
             {
                 if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
-                string.IsNullOrWhiteSpace(balance))
+                string.IsNullOrWhiteSpace(balance) ||
+                !double.TryParse(balance, out _))
                 {
                     throw new ArgumentException("Invalid user data!");
                 }
@@ -162,12 +166,18 @@ namespace FlowerShop.Services
 
         public bool LogIn(string username, string password)
         {
-            throw new NotImplementedException();
-        }
+            User user = GetUserByUsername(username);
 
-        public void SignOut()
-        {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("Invalid username!");
+            }
+            if (user.Password == password && user.Username == username)
+            {
+                Console.WriteLine("Login successful!");
+                return true;
+            }
+            return false;
         }
     }
 }

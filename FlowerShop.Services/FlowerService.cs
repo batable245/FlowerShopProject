@@ -21,7 +21,7 @@
         {
             if (string.IsNullOrWhiteSpace(name) || !double.TryParse(price, out _))
             {
-                throw new ArgumentException("Invalid Flower params!");
+                throw new ArgumentException("Invalid flower params!");
             }
             if (GetFlowerByName(name) != null)
             {
@@ -39,20 +39,41 @@
         public void DeleteFlower(string name)
         {
             Flower flower = GetFlowerByName(name);
-            if (flower != null)
+            if (flower == null)
             {
-                context.Flowers.Remove(flower);
-                context.SaveChanges();
+                throw new Exception("Flower not found");
             }
+            context.Flowers.Remove(flower);
+            context.SaveChanges();
+
         }
         public ICollection<Flower> GetAllFlowers()
         {
             return this.context.Flowers.ToList();
         }
 
-        public void UpdateFlower()
+        
+        public void UpdateFlower(string searchname, string? name = null, 
+            string? price = null, string? quantity = null)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(searchname))
+            {
+                throw new ArgumentException("Flower not found");
+            }
+            Flower flower = GetFlowerByName(searchname);
+            if (!string.IsNullOrEmpty(name))
+            {
+                flower.Name = name;
+            }
+            if (!string.IsNullOrEmpty(price))
+            {
+                flower.Price = double.Parse(price);
+            }
+            if (!string.IsNullOrEmpty(quantity))
+            {
+                flower.Quantity = int.Parse(quantity);
+            }
+            context.SaveChanges();
         }
     }
 }

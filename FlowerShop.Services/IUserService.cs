@@ -13,7 +13,6 @@ namespace FlowerShop.Services
         public void AddBalance(string username, string balance);
         public ICollection<string> GetAllUsersUsernames();
         public bool LogIn(string username, string password);
-        public void SignOut();
         public User GetUserById(int id);
         public User GetUserByUsername(string username);
     }
