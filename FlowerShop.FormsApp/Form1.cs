@@ -32,8 +32,11 @@ namespace FlowerShop.FormsApp
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[4].Visible = false;
             dataGridView1.Columns[5].Visible = false;
+            DataGridViewElementStates states = DataGridViewElementStates.Visible;
             dataGridView1.Width = SystemInformation.VerticalScrollBarWidth
-                + dataGridView1.RowHeadersWidth*dataGridView1.ColumnCount + 2;
+                + dataGridView1.Columns.GetColumnsWidth(states) + 3;
+            //var totalHeight = dataGridView1.Rows.GetRowsHeight(states) + dataGridView1.ColumnHeadersHeight;
+            //dataGridView1.ClientSize = new System.Drawing.Size(width, totalHeight);
         }
         private void button1_Click(object sender, EventArgs e)
         {
