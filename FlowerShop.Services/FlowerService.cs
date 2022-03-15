@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System;
-    public class FlowerService
+    public class FlowerService : IFlowerService
     {
         private readonly AppDbContext context;
         public FlowerService(AppDbContext context)
@@ -67,11 +67,17 @@
             }
             if (!string.IsNullOrEmpty(price))
             {
-                flower.Price = double.Parse(price);
+                if (double.TryParse(price, out _))
+                {
+                    flower.Price = double.Parse(price);
+                }
             }
             if (!string.IsNullOrEmpty(quantity))
             {
-                flower.Quantity = int.Parse(quantity);
+                if (int.TryParse(quantity, out _))
+                {
+                    flower.Quantity = int.Parse(quantity);
+                }
             }
             context.SaveChanges();
         }

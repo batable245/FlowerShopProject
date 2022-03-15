@@ -6,7 +6,8 @@ namespace FlowerShop.Services
     {
         public ICollection<Flower> GetAllFlowers();
         public void AddFlower(string name, string price, int quantity);
-        public void UpdateFlower();
-        public void DeleteFlower();
+        public void DeleteFlower(string name);
+        public void UpdateFlower(string searchname, string? name = null,
+            string? price = null, string? quantity = null);
     }
 }
