@@ -31,15 +31,19 @@ namespace FlowerShop.FormsApp
         }
         public void DataGridViewFitToContent(DataGridView dataGridView)
         {
-            DataGridViewElementStates states = DataGridViewElementStates.Visible;
-
-            //Ability to compare displayed vs totalheight of dataGridView containers \/
-            //int displayedheight = dataGridView.Height;
-            //int totalheight = dataGridView.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + dataGridView.ColumnHeadersHeight;
-            //MessageBox.Show(displayedheight.ToString() + ' ' + totalheight.ToString());
-            
+            DataGridViewElementStates states = DataGridViewElementStates.Visible;           
+            int containerheight = dataGridView.Height;
+            int totalheight = dataGridView.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + dataGridView.ColumnHeadersHeight;
+            if (containerheight>totalheight)
+            {
+                dataGridView.Width = dataGridView.Columns.GetColumnsWidth(states) + 2;
+            }
+            else
+            {
             dataGridView.Width = SystemInformation.VerticalScrollBarWidth
                 + dataGridView.Columns.GetColumnsWidth(states) + 3;
+            }
+
         }
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
