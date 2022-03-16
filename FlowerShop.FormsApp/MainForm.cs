@@ -13,10 +13,10 @@ namespace FlowerShop.FormsApp
     using Microsoft.Data.SqlClient;
     using Models;
     using Services;
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         internal MainService service = new MainService();
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             UpdateGrid();

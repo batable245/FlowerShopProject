@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FlowerShop.Services
 {
-    public class UserService : IUserService
+    public class UserService 
     {
         private readonly AppDbContext context;
 
-        public UserService()
+        public UserService(AppDbContext context)
         {
-            context = new AppDbContext();
+            this.context = context;
         }
         public void ChangePassword(string username, string newPassword)
         {
@@ -82,8 +82,7 @@ namespace FlowerShop.Services
 
         public void CreateUser(string username, string password, string balance)
         {
-            try
-            {
+                   
                 if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(balance) ||
@@ -115,13 +114,11 @@ namespace FlowerShop.Services
                 };
                 context.Users.Add(user);
                 context.SaveChanges();
-                Console.WriteLine("User created!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            
+                    
+                //Console.WriteLine("User created!");      
         }
+
 
         public void DeleteUserById(int id)
         {
@@ -184,16 +181,19 @@ namespace FlowerShop.Services
         {
             User user = GetUserByUsername(username);
 
-            if (string.IsNullOrWhiteSpace(username))
+            if (string.IsNullOrWhiteSpace(username)||string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentException("Invalid username!");
+                throw new ArgumentException("Invalid user params!");
+            }
+            if (user == null)
+            {
+                throw new ArgumentException("User not found");                             
             }
             if (user.Password == password)
             {
-                Console.WriteLine("Login successful!");
                 return true;
-            }
-            return false;
+            }          
+                return false;         
         }
     }
 }
