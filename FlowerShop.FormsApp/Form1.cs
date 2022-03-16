@@ -22,6 +22,20 @@ namespace FlowerShop.FormsApp
             UpdateGrid();
             label2.Visible = false;
             textBox2.Visible = false;
+            foreach (BouquetFlower bouquetflower in service.BouquetService.GetAllBouquetFlower())
+            {
+                richTextBox1.Text += "BouquetId: " + bouquetflower.Bouquet.Id.ToString() +
+                    ", Flower name: " + bouquetflower.Flower.Name.ToString() +
+                    ", Quantity: " + bouquetflower.Quantity + "\n";
+            }
+            foreach (Bouquet bouquet in service.BouquetService.GetAllBouquets())
+            {
+                richTextBox1.Text += service.BouquetService.GetFlowerQuantity(bouquet);
+            }
+        }
+        public void AdjustColumnOrder(DataGridView dataGridView,string ColumnName, int Index)
+        {
+            dataGridView.Columns[ColumnName].DisplayIndex = Index;
         }
         public void UpdateGrid()
         {
@@ -31,26 +45,19 @@ namespace FlowerShop.FormsApp
         }
         public void DataGridViewFitToContent(DataGridView dataGridView)
         {
-            DataGridViewElementStates states = DataGridViewElementStates.Visible;           
+            DataGridViewElementStates states = DataGridViewElementStates.Visible;
             int containerheight = dataGridView.Height;
-            int totalheight = dataGridView.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + dataGridView.ColumnHeadersHeight;
-            if (containerheight>totalheight)
+            int totalheight = dataGridView.Rows.GetRowsHeight(states) + dataGridView.ColumnHeadersHeight;
+            if (containerheight > totalheight)
             {
-                dataGridView.Width = dataGridView.Columns.GetColumnsWidth(states) + 2;
+                dataGridView.Width = dataGridView.Columns.GetColumnsWidth(states) + 3;
             }
             else
             {
-            dataGridView.Width = SystemInformation.VerticalScrollBarWidth
-                + dataGridView.Columns.GetColumnsWidth(states) + 3;
+                dataGridView.Width = SystemInformation.VerticalScrollBarWidth
+                    + dataGridView.Columns.GetColumnsWidth(states) + 3;
             }
 
-        }
-        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            dataGridView1.Columns[0].Visible = false;
-            dataGridView1.Columns[4].Visible = false;
-            dataGridView1.Columns[5].Visible = false;
-            DataGridViewFitToContent(dataGridView1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -81,6 +88,7 @@ namespace FlowerShop.FormsApp
             form2.ShowDialog();
         }
 
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             label2.Visible = true;
@@ -93,16 +101,25 @@ namespace FlowerShop.FormsApp
         }
 
 
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[4].Visible = false;
+            dataGridView1.Columns[5].Visible = false;
+            DataGridViewFitToContent(dataGridView1);
+        }
         private void dataGridView2_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            dataGridView2.Columns[0].Visible = false;
+            AdjustColumnOrder(dataGridView2, "Quantity", 2);
+            AdjustColumnOrder(dataGridView2, "Bouquet", 1);
             DataGridViewFitToContent(dataGridView2);
         }
-
         private void dataGridView3_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dataGridView3.Columns[4].Visible = false;
-            dataGridView3.Columns[5].Visible = false;
             DataGridViewFitToContent(dataGridView3);
         }
+
+
     }
 }

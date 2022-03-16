@@ -4,6 +4,7 @@ namespace FlowerShop.Services
 {
     public interface IFlowerService
     {
+#nullable enable
         public ICollection<Flower> GetAllFlowers();
         public void AddFlower(string name, string price, int quantity);
         public Flower GetFlowerByName(string name);

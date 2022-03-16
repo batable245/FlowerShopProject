@@ -71,8 +71,21 @@
         {
             return this.context.BouquetFlowers.ToList();
         }
-        
 
+        public BouquetFlower GetBouquetFlowerById(int id)
+        {
+            return this.context.BouquetFlowers.FirstOrDefault(x => x.Id == id);
+        }
+
+        public int GetFlowerQuantity(Bouquet bouquet)
+        {
+            int index = 0;
+            foreach (BouquetFlower bouquetflowers in GetAllBouquetFlower().Where(x=>x.Bouquet.Id == bouquet.Id))
+            {
+                index = index + bouquetflowers.Quantity;
+            }
+            return index;
+        }
         public void RemoveFlowerFromBouquet(string flowerName, int quantity)
         {
             throw new NotImplementedException();
