@@ -28,12 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.bouquetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.flowerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.flowerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             this.button2 = new System.Windows.Forms.Button();
@@ -50,9 +46,6 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bouquetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.flowerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.flowerBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
@@ -77,10 +70,6 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             // 
-            // bouquetBindingSource
-            // 
-            this.bouquetBindingSource.DataSource = typeof(FlowerShop.Models.Bouquet);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(257, 293);
@@ -90,14 +79,6 @@
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // flowerBindingSource
-            // 
-            this.flowerBindingSource.DataSource = typeof(FlowerShop.Models.Flower);
-            // 
-            // flowerBindingSource1
-            // 
-            this.flowerBindingSource1.DataSource = typeof(FlowerShop.Models.Flower);
             // 
             // textBox1
             // 
@@ -214,6 +195,7 @@
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AllowUserToOrderColumns = true;
             this.dataGridView2.AllowUserToResizeRows = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(404, 38);
@@ -270,9 +252,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bouquetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.flowerBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.flowerBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
@@ -284,9 +263,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.BindingSource bouquetBindingSource;
-        private System.Windows.Forms.BindingSource flowerBindingSource;
-        private System.Windows.Forms.BindingSource flowerBindingSource1;
         private System.Windows.Forms.TextBox textBox1;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private System.Windows.Forms.Button button2;

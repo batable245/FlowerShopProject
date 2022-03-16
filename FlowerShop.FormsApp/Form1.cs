@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace FlowerShop.FormsApp
 {
+    using Microsoft.Data.SqlClient;
     using Models;
     using Services;
     public partial class Form1 : Form
@@ -31,6 +32,12 @@ namespace FlowerShop.FormsApp
         public void DataGridViewFitToContent(DataGridView dataGridView)
         {
             DataGridViewElementStates states = DataGridViewElementStates.Visible;
+
+            //Ability to compare displayed vs totalheight of dataGridView containers \/
+            //int displayedheight = dataGridView.Height;
+            //int totalheight = dataGridView.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + dataGridView.ColumnHeadersHeight;
+            //MessageBox.Show(displayedheight.ToString() + ' ' + totalheight.ToString());
+            
             dataGridView.Width = SystemInformation.VerticalScrollBarWidth
                 + dataGridView.Columns.GetColumnsWidth(states) + 3;
         }
@@ -69,7 +76,7 @@ namespace FlowerShop.FormsApp
             Form2 form2 = new Form2();
             form2.ShowDialog();
         }
-        
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             label2.Visible = true;
@@ -80,12 +87,11 @@ namespace FlowerShop.FormsApp
             label2.Visible = false;
             textBox2.Visible = false;
         }
-    
+
 
         private void dataGridView2_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-
-            //DataGridViewFitToContent(dataGridView2);
+            DataGridViewFitToContent(dataGridView2);
         }
 
         private void dataGridView3_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

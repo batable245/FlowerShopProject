@@ -10,8 +10,8 @@ namespace FlowerShop.Models
 
         [Required]
         public int Quantity { get; set; }
-        public Bouquet Bouquet { get; set; }
-        public Flower Flower { get; set; }
+        public virtual Bouquet Bouquet { get; set; }
+        public virtual Flower Flower { get; set; }
 
     }
 }
