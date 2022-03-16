@@ -43,7 +43,7 @@ namespace FlowerShop.Services
         {
             try
             {
-                if (newUsername == null || string.IsNullOrWhiteSpace(newUsername))
+                if (string.IsNullOrWhiteSpace(newUsername))
                 {
                     throw new ArgumentException("Invalid username!");
                 }
@@ -111,7 +111,6 @@ namespace FlowerShop.Services
                     Username = username,
                     Password = password,
                     Balance = initialBalance,
-                    Role = Role.USER,
                     RegisterDate = DateTime.Now,
                 };
                 context.Users.Add(user);
@@ -145,7 +144,21 @@ namespace FlowerShop.Services
 
         public void DeleteUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = GetUserByUsername(username);
+                if (user == null)
+                {
+                    throw new ArgumentException("User not found!");
+                }
+                context.Users.Remove(user);
+                context.SaveChanges();
+                Console.WriteLine("User removed!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public ICollection<string> GetAllUsersUsernames(int page = 1, int itemsPerPage = 10)
@@ -175,7 +188,7 @@ namespace FlowerShop.Services
             {
                 throw new ArgumentException("Invalid username!");
             }
-            if (user.Password == password && user.Username == username)
+            if (user.Password == password)
             {
                 Console.WriteLine("Login successful!");
                 return true;

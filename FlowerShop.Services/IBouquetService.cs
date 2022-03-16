@@ -8,11 +8,12 @@ using Models;
     public interface IBouquetService
     {
         public ICollection<Bouquet> GetAllBouquets();
-        public void AddBouquet();
+        //public void AddBouquet();
         public void UpdateBouquet();
         public void DeleteBouquet();
-        public void AddFlowerToBouquet(string flowerName, int quantity);
+        public void AddFlowerToBouquet(string flowerName);
         public void RemoveFlowerFromBouquet(string flowerName, int quantity);
-        public void WrapBouquet(string ribbon = "Red", string packageColour = "Golden", string packageDesign = "Clean");
+        public void GetPurchasedBouquetsByUser(string username);
+
     }
 }

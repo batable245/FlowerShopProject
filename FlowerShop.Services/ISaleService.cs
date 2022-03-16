@@ -5,7 +5,5 @@ namespace FlowerShop.Services
     {
         public void BuyFlower(string flowerName, int quantity, string username);
         public void BuyBouquet(int id, string username);
-        public void GetAllFlowersByUser(string username);
-        public void GetAllBouquetsByUser(string username);
     }
 }

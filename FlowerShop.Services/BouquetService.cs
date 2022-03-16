@@ -17,11 +17,15 @@
         {
             try
             {
+                //Here we will have a list of user added flowers and then we will call the AddFlowersToBouquet method to add them to the bouquet
+
                 //if (!int.TryParse(initialQuantity, out _))
                 //{
                 //    throw new ArgumentException("Invalid bouquet quantity!");
                 //}
                 //int quantity = int.Parse(initialQuantity);
+
+
                 string packageColour = Console.ReadLine();
                 string packageDesign = Console.ReadLine();
                 bool HasRibbon = bool.Parse(Console.ReadLine());
@@ -44,14 +48,10 @@
                 Console.WriteLine(ex.Message);
             }
         }
-        public void AddBouquet()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void AddFlowerToBouquet(string flowerName, int quantity)
+        public void AddFlowersToBouquet(ICollection<Flower> flowers)
         {
-            throw new NotImplementedException();
+
         }
 
         public void DeleteBouquet()
@@ -83,9 +83,9 @@
             throw new NotImplementedException();
         }
 
-        public void WrapBouquet(string ribbon = "Red", string packageColour = "Golden", string packageDesign = "Clean")
-        {
-            throw new NotImplementedException();
-        }
+        //public void WrapBouquet(string ribbon = "Red", string packageColour = "Golden", string packageDesign = "Clean")
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

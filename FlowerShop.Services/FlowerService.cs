@@ -79,6 +79,11 @@
             }
             context.SaveChanges();
         }
+
+        public void GetPurchasedFlowersByUser(string username)
+        {
+            throw new NotImplementedException();
+        }
 #nullable disable
     }
 }
