@@ -12,7 +12,7 @@ namespace FlowerShop.Models
         [Required]
         public int Quantity { get; set; }
         public int FlowerQuantity { get; set; }
-        //public Dictionary<string, int> FlowersCountPair { get; set; } //holds flowersId or names to bouquet
+       // public Dictionary<string, int> FlowersCountPair { get; set; } //holds flowersId or names to bouquet
         public double Price { get; set; }
         public bool HasRibbon { get; set; }
         public string PackageColour { get; set; }

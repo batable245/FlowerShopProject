@@ -13,15 +13,36 @@ namespace FlowerShop.FormsApp
     using Microsoft.Data.SqlClient;
     using Models;
     using Services;
-    public partial class Form1 : Form
+    using System.Reflection;
+
+    public partial class MainForm : Form
     {
         internal MainService service = new MainService();
-        public Form1()
+        internal Bouquet bouquet1;
+        public MainForm()
         {
             InitializeComponent();
             UpdateGrid();
+
+            
+
+
+
+
+
+            if (UserForm.user != null)
+            {
+                User user = UserForm.user;
+                foreach (PropertyInfo prop in user.GetType().GetProperties())
+                {
+                    richTextBox1.Text += prop.Name + ": " + prop.GetValue(user)+"\n";
+                }
+            }
             label2.Visible = false;
             textBox2.Visible = false;
+
+
+
             foreach (BouquetFlower bouquetflower in service.BouquetService.GetAllBouquetFlower())
             {
                 richTextBox1.Text += "BouquetId: " + bouquetflower.Bouquet.Id.ToString() +
@@ -30,13 +51,16 @@ namespace FlowerShop.FormsApp
             }
             foreach (Bouquet bouquet in service.BouquetService.GetAllBouquets())
             {
-                richTextBox1.Text += service.BouquetService.GetFlowerQuantity(bouquet);
+                richTextBox1.Text += service.BouquetService.GetTotalFlowerQuantity(bouquet);
             }
+
         }
-        public void AdjustColumnOrder(DataGridView dataGridView,string ColumnName, int Index)
+
+        public void AdjustColumnOrder(DataGridView dataGridView, string ColumnName, int Index)
         {
             dataGridView.Columns[ColumnName].DisplayIndex = Index;
         }
+
         public void UpdateGrid()
         {
             dataGridView1.DataSource = service.FlowerService.GetAllFlowers();
@@ -78,7 +102,6 @@ namespace FlowerShop.FormsApp
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            //List<string> input = textBox3.Text.Split(',').ToList();
             service.FlowerService.UpdateFlower(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
             UpdateGrid();
         }
@@ -117,9 +140,37 @@ namespace FlowerShop.FormsApp
         }
         private void dataGridView3_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            dataGridView3.Columns[3].Visible = false;
+            dataGridView3.Columns[4].Visible = false;
+            dataGridView3.Columns[5].Visible = false;
+            dataGridView3.Columns[6].Visible = false;
             DataGridViewFitToContent(dataGridView3);
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string flowername = textBox1.Text;
+            try
+            {
+                if (bouquet1 == null)
+                {
+                    throw new ArgumentException("Create a Bouquet first!");
+                }
+                service.BouquetService.AddFlowerToBouquet(flowername, bouquet1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            } 
+            
 
+            UpdateGrid();    
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            bouquet1 = service.BouquetService.CreateBouquet();
+            UpdateGrid();
+        }
     }
 }
