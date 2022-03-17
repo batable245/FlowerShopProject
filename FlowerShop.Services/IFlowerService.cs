@@ -11,7 +11,6 @@ namespace FlowerShop.Services
         public void DeleteFlower(string name);
         public void UpdateFlower(string searchname, string? name = null,
             string? price = null, string? quantity = null);
-        public void GetPurchasedFlowersByUser(string username);
 
     }
 }

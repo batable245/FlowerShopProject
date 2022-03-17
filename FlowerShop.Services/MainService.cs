@@ -9,6 +9,7 @@
             this.BouquetService = new BouquetService(context);
             this.FlowerService = new FlowerService(context);
             this.UserService = new UserService(context);
+            this.SalesService = new SaleService(context, FlowerService, UserService);
         }
         //public OutputService Output { get; private set; } -> need to implement
 
@@ -47,5 +48,7 @@
         public BouquetService BouquetService { get; private set; }
         public FlowerService FlowerService { get; private set; }
         public UserService UserService { get; private set; }
+        public SaleService SalesService { get; private set; }
+
     }
 }
