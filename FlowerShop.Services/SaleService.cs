@@ -13,24 +13,13 @@ namespace FlowerShop.Services
         private readonly AppDbContext context;
         private readonly FlowerService flowerService;
         private readonly UserService userService;
-        //check if I need this constructor
         public SaleService(AppDbContext context, FlowerService flowerService, UserService userService)
         {
             this.context = context;
             this.flowerService = flowerService;
             this.userService = userService;
         }
-
-        public Flower GetFlowerByName(string name)
-        {
-            return this.context.Flowers.FirstOrDefault(x => x.Name == name);
-        }
-        public User GetUserByUsername(string username)
-        {
-            User user = this.context.Users.Where(x => x.Username == username).FirstOrDefault();
-            return user;
-          
-        }
+       
         public void BuyFlower(string flowerName, int quantity, string username)
         {
             Flower flower = flowerService.GetFlowerByName(flowerName);
