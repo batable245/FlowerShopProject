@@ -28,37 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.UsernameBox = new System.Windows.Forms.TextBox();
+            this.PasswordBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.signupButton = new System.Windows.Forms.Button();
-            this.signinButton = new System.Windows.Forms.Button();
+            this.btnSignUp = new System.Windows.Forms.Button();
+            this.btnSignIn = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // UsernameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(124, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 23);
-            this.textBox1.TabIndex = 0;
+            this.UsernameBox.Location = new System.Drawing.Point(124, 51);
+            this.UsernameBox.Name = "UsernameBox";
+            this.UsernameBox.Size = new System.Drawing.Size(100, 23);
+            this.UsernameBox.TabIndex = 0;
+            this.UsernameBox.Text = "Angel";
             // 
-            // textBox2
+            // PasswordBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(124, 91);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 23);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(124, 189);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 23);
-            this.textBox3.TabIndex = 2;
+            this.PasswordBox.Location = new System.Drawing.Point(124, 91);
+            this.PasswordBox.Name = "PasswordBox";
+            this.PasswordBox.Size = new System.Drawing.Size(100, 23);
+            this.PasswordBox.TabIndex = 1;
+            this.PasswordBox.Text = "123456";
             // 
             // label1
             // 
@@ -78,34 +73,25 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Password";
             // 
-            // label3
+            // btnSignUp
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(80, 192);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 15);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Role";
+            this.btnSignUp.Location = new System.Drawing.Point(61, 130);
+            this.btnSignUp.Name = "btnSignUp";
+            this.btnSignUp.Size = new System.Drawing.Size(75, 23);
+            this.btnSignUp.TabIndex = 6;
+            this.btnSignUp.Text = "Sign up";
+            this.btnSignUp.UseVisualStyleBackColor = true;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
-            // signupButton
+            // btnSignIn
             // 
-            this.signupButton.Location = new System.Drawing.Point(61, 130);
-            this.signupButton.Name = "signupButton";
-            this.signupButton.Size = new System.Drawing.Size(75, 23);
-            this.signupButton.TabIndex = 6;
-            this.signupButton.Text = "Sign up";
-            this.signupButton.UseVisualStyleBackColor = true;
-            this.signupButton.Click += new System.EventHandler(this.signupButton_Click);
-            // 
-            // signinButton
-            // 
-            this.signinButton.Location = new System.Drawing.Point(170, 130);
-            this.signinButton.Name = "signinButton";
-            this.signinButton.Size = new System.Drawing.Size(75, 23);
-            this.signinButton.TabIndex = 7;
-            this.signinButton.Text = "Sign in";
-            this.signinButton.UseVisualStyleBackColor = true;
-            this.signinButton.Click += new System.EventHandler(this.signinButton_Click);
+            this.btnSignIn.Location = new System.Drawing.Point(170, 130);
+            this.btnSignIn.Name = "btnSignIn";
+            this.btnSignIn.Size = new System.Drawing.Size(75, 23);
+            this.btnSignIn.TabIndex = 7;
+            this.btnSignIn.Text = "Sign in";
+            this.btnSignIn.UseVisualStyleBackColor = true;
+            this.btnSignIn.Click += new System.EventHandler(this.btnSignIn_Click);
             // 
             // button3
             // 
@@ -117,20 +103,36 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(124, 189);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 23);
+            this.textBox3.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(80, 192);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(30, 15);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Role";
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(319, 308);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.signinButton);
-            this.Controls.Add(this.signupButton);
+            this.Controls.Add(this.btnSignIn);
+            this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.PasswordBox);
+            this.Controls.Add(this.UsernameBox);
             this.Name = "UserForm";
             this.Text = "User";
             this.ResumeLayout(false);
@@ -140,14 +142,14 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox UsernameBox;
+        private System.Windows.Forms.TextBox PasswordBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button signupButton;
-        private System.Windows.Forms.Button signinButton;
+        private System.Windows.Forms.Button btnSignUp;
+        private System.Windows.Forms.Button btnSignIn;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label3;
     }
 }

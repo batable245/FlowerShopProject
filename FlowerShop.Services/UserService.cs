@@ -179,12 +179,12 @@ namespace FlowerShop.Services
 
         public bool LogIn(string username, string password)
         {
-            User user = GetUserByUsername(username);
 
             if (string.IsNullOrWhiteSpace(username)||string.IsNullOrWhiteSpace(password))
             {
                 throw new ArgumentException("Invalid user params!");
             }
+            User user = GetUserByUsername(username);
             if (user == null)
             {
                 throw new ArgumentException("User not found");                             
@@ -192,8 +192,34 @@ namespace FlowerShop.Services
             if (user.Password == password)
             {
                 return true;
-            }          
-                return false;         
+            }
+            else
+            {
+                throw new ArgumentException("Wrong password");       
+            }
+        }
+
+        //public User, so it can return logged in User similiar to CreateUser()
+        public User LogIns(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Invalid user params!");
+            }
+            User user = GetUserByUsername(username);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found");
+            }
+            if (user.Password == password)
+            {
+                return user;
+            }
+            else
+            {
+                throw new ArgumentException("Wrong password");
+            }
+            
         }
     }
 }

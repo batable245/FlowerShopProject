@@ -14,52 +14,64 @@ namespace FlowerShop.FormsApp
     using Services;
     public partial class UserForm : Form
     {
-
+        public static User? user;
         internal MainService service = new MainService();
         public UserForm()
         {
             InitializeComponent();
         }
-     
 
-      
+        public void NavigateToMainForm()
+        {          
+            //Its like this because normally it would close both of the forms
+            this.Hide();
+            var form2 = new MainForm();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
+        }
 
-        private void signupButton_Click(object sender, EventArgs e)
+        private void btnSignUp_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text;
-            string password = textBox2.Text;
+            string username = UsernameBox.Text;
+            string password = PasswordBox.Text;
             try
             {
-            service.UserService.CreateUser(username, password, "100");
+                service.UserService.CreateUser(username, password, "100");
+                MessageBox.Show("Registered new user!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-        private void signinButton_Click(object sender, EventArgs e)
+
+        private void btnSignIn_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text;
-            string password = textBox2.Text;
-            if (service.UserService.LogIn(username, password))
+            string username = UsernameBox.Text;
+            string password = PasswordBox.Text;
+            try
             {
-                User user = service.UserService.GetUserByUsername(username);
-                this.Hide();
-                var form2 = new MainForm();
-                form2.Closed += (s, args) => this.Close();
-                form2.Show();
+                if (service.UserService.LogIn(username, password))
+                {
+                    //User user = service.UserService.GetUserByUsername(username);
+                    user = service.UserService.GetUserByUsername(username);                   
+                    MessageBox.Show("Login Successfull!");
+                    NavigateToMainForm();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid password");
+                MessageBox.Show(ex.Message);
             }
         }
+
         private void button3_Click(object sender, EventArgs e)
-        {         
+        {
             this.Hide();
             var form2 = new MainForm();
             form2.Closed += (s, args) => this.Close();
             form2.Show();
         }
+
     }
 }

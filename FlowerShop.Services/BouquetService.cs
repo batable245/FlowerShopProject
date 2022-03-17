@@ -1,10 +1,10 @@
 ﻿namespace FlowerShop.Services
 {
+    using System;
     using Models;
     using Data;
     using System.Collections.Generic;
     using System.Linq;
-    using System;
 
     public class BouquetService
     {
@@ -58,6 +58,19 @@
         //{
         //    throw new NotImplementedException();
         //}
+        public Bouquet CreateBouquet()
+        {
+            Bouquet bouquet = new Bouquet()
+            {
+                Quantity = 1,
+                Price = 2,
+                HasRibbon = false,
+                FlowerQuantity = 0
+            };
+            context.Bouquets.Add(bouquet);
+            context.SaveChanges();
+            return bouquet;
+        }
         public Bouquet GetBouquetFromId(int id)
         {
             return this.context.Bouquets.FirstOrDefault(x => x.Id == id);
@@ -71,21 +84,73 @@
             return this.context.BouquetFlowers.ToList();
         }
 
-        public BouquetFlower GetBouquetFlowerById(int id)
+        /*public ICollection<BouquetFlower> GetBouquetFlowersWithFormat()
         {
-            return this.context.BouquetFlowers.FirstOrDefault(x => x.Id == id);
+            foreach (BouquetFlower bouquetflower in GetAllBouquetFlower())
+            {
+                List<Bouquet> bouquets = new List<Bouquet>();
+                //List<Flower> flowers = new List<Flower>(bouquetflower.Flower);
+            }
+        }*/
+
+        
+        /// <summary>
+        /// I couldnt call GetFlowerByName method in Flowerservice, so i made this one
+        /// </summary>
+        public Flower GetFlowerByName(string name)
+        {
+            return this.context.Flowers.FirstOrDefault(x => x.Name == name);
+        }
+        public void AddFlowerToBouquet(string flowername, Bouquet newbouquet)
+        {
+            //Bouquet newbouquet = CreateBouquet();           
+            if (GetFlowerByName(flowername) != null)
+            {
+                Flower flower = GetFlowerByName(flowername);
+
+                BouquetFlower newbouquetflower = new BouquetFlower()
+                {
+                    Bouquet = newbouquet,
+                    Flower = flower,
+                    Quantity = 1
+                };
+                context.BouquetFlowers.Add(newbouquetflower);
+
+                context.SaveChanges();
+            }
         }
 
-        public int GetFlowerQuantity(Bouquet bouquet)
+        //public BouquetFlower GetBouquetFlowerById(int id)
+        //{
+        //    return this.context.BouquetFlowers.FirstOrDefault(x => x.Id == id);
+        //}
+        
+        public int GetTotalFlowerQuantity(Bouquet bouquet)
         {
+            //todo add a check
             int index = 0;
-            foreach (BouquetFlower bouquetflowers in GetAllBouquetFlower().Where(x=>x.Bouquet.Id == bouquet.Id))
+            foreach (BouquetFlower bouquetflowers in GetAllBouquetFlower().Where(x => x.Bouquet.Id == bouquet.Id))
             {
                 index = index + bouquetflowers.Quantity;
             }
             return index;
         }
-        
+        public void UpdateTotalFlowerQuantity(Bouquet bouquet)
+        {
+            int flowerquantity = GetTotalFlowerQuantity(bouquet);
+             GetBouquetFromId(bouquet.Id);
+        }
+        public int GetSameFlowerQuantity(Bouquet bouquet)
+        {
+            int index = 0;
+            foreach (BouquetFlower bouquetflowers in GetAllBouquetFlower().Where(x=>x.Bouquet==bouquet))
+            {
+                index++;
+            }
+            return index;
+        }
+
+
         //public void RemoveFlowerFromBouquet(string flowerName, int quantity)
         //{
         //    throw new NotImplementedException();
