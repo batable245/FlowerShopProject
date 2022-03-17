@@ -83,19 +83,6 @@
         {
             return this.context.BouquetFlowers.ToList();
         }
-
-        /*public ICollection<BouquetFlower> GetBouquetFlowersWithFormat()
-        {
-            foreach (BouquetFlower bouquetflower in GetAllBouquetFlower())
-            {
-                List<Bouquet> bouquets = new List<Bouquet>();
-                //List<Flower> flowers = new List<Flower>(bouquetflower.Flower);
-            }
-        }*/
-
-        /// <summary>
-        /// I couldnt call GetFlowerByName method in Flowerservice, so i made this one
-        /// </summary>
         public Flower GetFlowerByName(string name)
         {
             return this.context.Flowers.FirstOrDefault(x => x.Name == name);
@@ -118,12 +105,6 @@
                 context.SaveChanges();
             }
         }
-
-        //public BouquetFlower GetBouquetFlowerById(int id)
-        //{
-        //    return this.context.BouquetFlowers.FirstOrDefault(x => x.Id == id);
-        //}
-        
         public int GetTotalFlowerQuantity(Bouquet bouquet)
         {
             //todo add a check
@@ -149,19 +130,5 @@
             return index;
         }
 
-
-        //public void RemoveFlowerFromBouquet(string flowerName, int quantity)
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //public void UpdateBouquet()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void WrapBouquet(string ribbon = "Red", string packageColour = "Golden", string packageDesign = "Clean")
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
