@@ -15,6 +15,7 @@ namespace FlowerShop.Services
 
             //flower.UpdateFlower("Rose", "Rose", "5", "15");
             //sales.BuyFlower("Rose", 3, "Ivcho");
+            //flower.UpdateFlowerPrice("Rose", "4");
         }
     }
 }

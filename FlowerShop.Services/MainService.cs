@@ -10,8 +10,8 @@
             this.FlowerService = new FlowerService(context);
             this.UserService = new UserService(context);
             this.SalesService = new SaleService(context, FlowerService, UserService);
+            this.OutputService = new OutputService();
         }
-        //public OutputService Output { get; private set; } -> need to implement
 
         public bool IsLogged { get; private set; }
         public bool IsAdmin { get; private set; }
@@ -49,6 +49,6 @@
         public FlowerService FlowerService { get; private set; }
         public UserService UserService { get; private set; }
         public SaleService SalesService { get; private set; }
-
+        public OutputService OutputService { get; private set; }
     }
 }

@@ -80,6 +80,37 @@
             context.SaveChanges();
         }
 
+        public void UpdateFlowerPrice(string flowerName, string newPrice)
+        {
+            if (string.IsNullOrWhiteSpace(flowerName))
+            {
+                throw new ArgumentException("Flower not found");
+            }
+            if (string.IsNullOrWhiteSpace(newPrice) || !double.TryParse(newPrice, out _) || double.Parse(newPrice) <= 0)
+            {
+                throw new ArgumentException("Invalid flower price");
+            }
+            Flower flower = GetFlowerByName(flowerName);
+            double price = double.Parse(newPrice);
+            flower.Price = price;
+            context.SaveChanges();
+        }
+
+        public void UpdateFlowerQuantity(string flowerName, string newQuantity)
+        {
+            if (string.IsNullOrWhiteSpace(flowerName))
+            {
+                throw new ArgumentException("Flower not found");
+            }
+            if (string.IsNullOrWhiteSpace(newQuantity) || !double.TryParse(newQuantity, out _) || double.Parse(newQuantity) <= 0)
+            {
+                throw new ArgumentException("Invalid flower quantity");
+            }
+            Flower flower = GetFlowerByName(flowerName);
+            int quantity = int.Parse(newQuantity);
+            flower.Quantity = quantity;
+            context.SaveChanges();
+        }
         
 #nullable disable
     }
