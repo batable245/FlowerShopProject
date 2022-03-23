@@ -14,13 +14,13 @@ namespace FlowerShop.Services
         {
             StringBuilder sb = new StringBuilder();
             AddTableTitle(message, sb);
-            string header = $"|{"Id",-5} | {"Name",-25} | {"Balance",-8} | {"Register date",-15}";
+            string header = $"|{"Id",-5} | {"Username",-20} | {"Balance",-8} | {"Register date",-15}";
             sb.AppendLine(header);
             sb.AppendLine(Border(header.Length));
 
             foreach (var user in users)
             {
-                sb.AppendLine($"{user.Id, -5} | {user.Username, -25} | {Math.Round(user.Balance, 2) -8} | {user.RegisterDate.ToShortDateString(), -15}");
+                sb.AppendLine($" {user.Id, -5} | {user.Username, -20} | {Math.Round(user.Balance, 2), -8} | {user.RegisterDate.ToShortDateString(), -15}");
                 sb.AppendLine(Border(header.Length));
             }
             return sb.ToString().TrimEnd();

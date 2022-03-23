@@ -8,6 +8,6 @@ namespace FlowerShop.Services
     {
         public void BuyFlower(string flowerName, int quantity, string username);
         //public void BuyBouquet(int id, string username);
-        public List<FlowerSale> GetPurchasedFlowersByUser(string username);
+        public ICollection<FlowerSale> GetPurchasedFlowersByUser(string username);
     }
 }

@@ -11,7 +11,7 @@ namespace FlowerShop.Services
         public void ChangePassword(string username, string password);
         public void DeleteUserById(int id);
         public void AddBalance(string username, string balance);
-        public ICollection<string> GetAllUsersUsernames(int page = 1, int itemsPerPage = 10);
+        public ICollection<User> GetAllUsersUsernames(int page = 1, int itemsPerPage = 10);
         public bool LogIn(string username, string password);
         public User GetUserById(int id);
         public User GetUserByUsername(string username);

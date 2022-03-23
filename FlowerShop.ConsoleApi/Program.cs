@@ -2,6 +2,7 @@
 
 namespace FlowerShop.ConsoleApi
 {
+    using FlowerShop.Data;
     using Models;
     using Services;
     using System.Collections.Generic;
@@ -10,12 +11,10 @@ namespace FlowerShop.ConsoleApi
     {
         static void Main(string[] args)
         {
-            MainService service = new MainService();
-            ICollection<Bouquet> bouquets = service.BouquetService.GetAllBouquets();
-            foreach (var item in bouquets)
-            {
-                Console.WriteLine($"id:{item.Id}\nQuantity:{item.Quantity}\nPrice:{item.Price}");
-            }
+            AppDbContext context = new AppDbContext();
+
+            Engine engine = new Engine(context);
+
         }
     }
 }

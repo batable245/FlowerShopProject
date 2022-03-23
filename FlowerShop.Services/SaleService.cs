@@ -55,10 +55,10 @@ namespace FlowerShop.Services
             context.SaveChanges();
         }
 
-        public List<FlowerSale> GetPurchasedFlowersByUser(string username)
+        public ICollection<FlowerSale> GetPurchasedFlowersByUser(string username)
         {
             User user = userService.GetUserByUsername(username);
-            List<FlowerSale> flowerSale = context.FlowerSales.Where(x => x.Id == user.Id).ToList();
+            ICollection<FlowerSale> flowerSale = context.FlowerSales.Where(x => x.Id == user.Id).ToList();
 
             return flowerSale;
         }

@@ -14,8 +14,10 @@ namespace FlowerShop.Services
             SaleService sales = new SaleService(context, flower, user);
 
             //flower.UpdateFlower("Rose", "Rose", "5", "15");
-            //sales.BuyFlower("Rose", 3, "Ivcho");
+            //sales.BuyFlower("Rose", 2, "Ilian");
             //flower.UpdateFlowerPrice("Rose", "4");
+            //sales.GetPurchasedFlowersByUser("Ivcho");
+            user.CreateUser("Batman", "Batman1", "88");
         }
     }
 }
