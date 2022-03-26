@@ -12,5 +12,6 @@ namespace FlowerShop.Services
         public void UpdateFlower(string searchname, string? name = null,
             string? price = null, string? quantity = null);
 
+        public ICollection<Flower> GetAllFlowersNames(int page = 1, int itemsPerPage = 10);
     }
 }

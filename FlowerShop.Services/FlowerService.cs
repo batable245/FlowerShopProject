@@ -16,6 +16,14 @@
         {
             return this.context.Flowers.FirstOrDefault(x => x.Name == name);
         }
+
+        public ICollection<Flower> GetAllFlowersNames(int page = 1, int itemsPerPage = 10)
+        {
+            return this.context.Flowers
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .ToList();
+        }
         public void AddFlower(string name, string price, int quantity)
         {
             if (string.IsNullOrWhiteSpace(name) || !double.TryParse(price, out _))

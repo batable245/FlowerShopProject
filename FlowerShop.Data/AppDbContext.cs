@@ -28,10 +28,12 @@ namespace FlowerShop.Data
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.FlowerSales)
-                .WithOne(e => e.User)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<User>()
+            //    .HasMany(e => e.FlowerSales)
+            //    .WithOne(e => e.User)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //do flower cascade operation
         }
         
     }

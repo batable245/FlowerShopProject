@@ -65,7 +65,8 @@ namespace FlowerShop.ConsoleApi
                     {
                         break;
                     }
-                    Console.Write("Select U (Show app users), D (Delete), L (Logout): ");
+                    //Add methods AddFlower(), UpdateFlower(), DeleteFlower(), FlowerList()
+                    Console.Write("Select U (Show app users), DU (Delete user), L (Logout): ");
                     string option = Console.ReadLine().ToUpper();
                     switch (option)
                     {
@@ -91,7 +92,7 @@ namespace FlowerShop.ConsoleApi
 
         private void DeleteUser()
         {
-            Console.WriteLine("Enter user to delete: ");
+            Console.Write("Enter user to delete: ");
             string name = Console.ReadLine();
             if (name == appUser)
             {
@@ -152,27 +153,27 @@ namespace FlowerShop.ConsoleApi
                     {
                         break;
                     }
-                    //First 3 commands are optional. MVP is most important Select CU (Change username), AB (Add balance)
-                    Console.Write("Select CP (Change password), BF (Buy flower), PF (See all purchased flowers), L (LogOut): ");
+                    Console.Write("Select CP (Change password), CU (Change username), AB (Add balance), FL (Flower list), BF (Buy flower), PF (See all purchased flowers), L (LogOut): ");
                     string option = Console.ReadLine().ToUpper();
                     switch (option)
                     {
                         case "CP":
-                            //see caching issue
                             ChangePassword(appUser);
                             break;
                         case "CU":
-
+                            ChangeUsername(appUser);
                             break;
                         case "AB":
-
+                            AddBalance(appUser);
                             break;
                         case "BF":
-                            //flowerService.buy
+                            BuyFlower();
                             break;
                         case "PF":
-
-
+                            PurchasedFlowers();
+                            break;
+                        case "FL":
+                            FlowerList();
                             break;
                         case "L":
                             LogOut();
@@ -188,20 +189,86 @@ namespace FlowerShop.ConsoleApi
             }
         }
 
-        public void FlowerList() //flowerList for bought flowers
+        private void PurchasedFlowers()
         {
             StringBuilder sb = new StringBuilder();
-            ICollection<FlowerService> flowers = (ICollection<FlowerService>)main.SalesService.GetPurchasedFlowersByUser(appUser);
-            if (flowers.Any())
+            var sales = main.SalesService.GetPurchasedFlowersByUser(appUser);
+            if (sales.Any())
             {
-                //sb.AppendLine(output.PrintFlowers(flowers, "Your flowers")); -> collision between FlowerService and FlowerSale
+                sb.AppendLine(output.PrintFlowerSales(sales, "Your flower purchase history"));
+            }
+            else
+            {
+                sb.AppendLine("No purchase history");
+            }
+            Console.WriteLine(sb.ToString().TrimEnd());
+        }
 
+        public void BuyFlower()
+        {
+            Console.Write("Enter flower name: ");
+            string flowerName = Console.ReadLine();
+            Console.Write("Enter flower quantity: ");
+            string _flowerQuantity = Console.ReadLine();
+            if (!int.TryParse(_flowerQuantity, out _) || string.IsNullOrWhiteSpace(_flowerQuantity) || int.Parse(_flowerQuantity) <= 0)
+            {
+                throw new ArgumentException("Invalid flower quantity!");
+            }
+
+            int flowerQuantity = int.Parse(_flowerQuantity);
+            saleService.BuyFlower(flowerName, flowerQuantity, appUser);
+        }
+
+        public void AddBalance(string username)
+        {
+            Console.Write("Enter balance to add: ");
+            string balance = Console.ReadLine();
+            userService.AddBalance(username, balance);
+        }
+
+        public void ChangeUsername(string username)
+        {
+            Console.Write("Enter new username: ");
+            string newUsername = Console.ReadLine();
+            userService.ChangeUsername(username, newUsername);
+        }
+
+        public void FlowerList()
+        {
+            int page = 1;
+            int totalPages = (int)Math.Ceiling(main.FlowerService.GetAllFlowers().Count() / 10.0);
+            while (true)
+            {
+                string flowers = output.PrintFlowers(main.FlowerService.GetAllFlowersNames(page), $"Flower list - page {page} / {totalPages}");
+                Console.WriteLine(flowers);
+                Console.WriteLine("P (Previous page), N (Next page), B (Back)");
+                string option = ReadInput("Select option: ").ToUpper();
+                switch (option)
+                {
+                    case "P":
+                        if (page > 1)
+                        {
+                            page--;
+                        }
+                        break;
+                    case "N":
+                        if (page < totalPages)
+                        {
+                            page++;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if (option == "B")
+                {
+                    break;
+                }
             }
         }
 
         public void ChangePassword(string username)
         {
-            //null reference exception, because of the warning
             Console.Write("Enter new password: ");
             string newPassword = Console.ReadLine();
             userService.ChangePassword(appUser, newPassword);

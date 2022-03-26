@@ -183,7 +183,10 @@ namespace FlowerShop.Services
         public User GetUserByUsername(string username)
         {
             User user = this.context.Users.Where(x => x.Username == username).FirstOrDefault();
-            context.Entry(user).State = EntityState.Detached;
+            if (user != null)
+            {
+                //context.Entry(user).State = EntityState.Detached;
+            }
             return user;
         }
 

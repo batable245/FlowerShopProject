@@ -19,48 +19,62 @@ namespace FlowerShop.Services
             this.flowerService = flowerService;
             this.userService = userService;
         }
-       
+
         public void BuyFlower(string flowerName, int quantity, string username)
         {
-            Flower flower = flowerService.GetFlowerByName(flowerName);
-            User user = userService.GetUserByUsername(username);
-            if (flowerName == null)
+            try
             {
-                throw new ArgumentException("Flower not found!");
-            }
-            if (username == null)
-            {
-                throw new ArgumentException("User not found!");
-            }
-            if (user.Balance < flower.Price * quantity)
-            {
-                throw new ArgumentException("Insufficient balance!");
-            }
-            if (flower.Quantity < quantity)
-            {
-                throw new ArgumentException("Not enought flowers!");
-            }
-            FlowerSale flowerSale = new FlowerSale();
-            flowerSale.Flower = flower;
-            flowerSale.User = user;
-            flowerSale.Quantity = quantity;
-            flowerSale.Date = DateTime.UtcNow;
-            flowerSale.Price = flower.Price;
+                Flower flower = flowerService.GetFlowerByName(flowerName);
+                User user = userService.GetUserByUsername(username);
+                if (flowerName == null)
+                {
+                    throw new ArgumentException("Flower not found!");
+                }
+                if (username == null)
+                {
+                    throw new ArgumentException("User not found!");
+                }
+                if (user.Balance < flower.Price * quantity)
+                {
+                    throw new ArgumentException("Insufficient balance!");
+                }
+                if (flower.Quantity < quantity)
+                {
+                    throw new ArgumentException("Not enought flowers!");
+                }
+                FlowerSale flowerSale = new FlowerSale();
+                flowerSale.Flower = flower;
+                flowerSale.User = user;
+                flowerSale.Quantity = quantity;
+                flowerSale.Date = DateTime.UtcNow;
+                flowerSale.Price = flower.Price;
 
-            user.Balance -= flower.Price * quantity;
-            flower.Quantity -= quantity;
-            context.Update(flower);
-            context.Update(user);
-            context.Add(flowerSale);
-            context.SaveChanges();
+                user.Balance -= flower.Price * quantity;
+                flower.Quantity -= quantity;
+                context.Update(flower);
+                context.Update(user);
+                context.Add(flowerSale);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public ICollection<FlowerSale> GetPurchasedFlowersByUser(string username)
         {
             User user = userService.GetUserByUsername(username);
-            ICollection<FlowerSale> flowerSale = context.FlowerSales.Where(x => x.Id == user.Id).ToList();
+            ICollection<FlowerSale> flowerSales = context.FlowerSales.Where(x => x.User.Id == user.Id).ToList();
+            //ICollection<FlowerSale> flowerSale = context.FlowerSales.Where(x => x.Flower.Id == 1).ToList();
+            //var flowerSale1 = context.FlowerSales.Where(x => x.Flower.Id == 1);
+            //foreach (var sale in flowerSale1)
+            //{
+            //    Console.WriteLine("sale");
+            //}
 
-            return flowerSale;
+            return flowerSales;
         }
+
     }
 }
