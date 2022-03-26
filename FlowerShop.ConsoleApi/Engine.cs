@@ -65,19 +65,34 @@ namespace FlowerShop.ConsoleApi
                     {
                         break;
                     }
-                    //Add methods AddFlower(), UpdateFlower(), DeleteFlower(), FlowerList()
-                    Console.Write("Select U (Show app users), DU (Delete user), L (Logout): ");
+                    //Add methods DeleteFlower()
+                    Console.Write("Select U (Show app users), AF (Add flower), FL (Flower list), UFP (Update flower price), UFQ (Update flower quantity), DU (Delete user), DF (Delete flower), L (Logout): ");
                     string option = Console.ReadLine().ToUpper();
                     switch (option)
                     {
                         case "U":
                             UserList();
                             break;
+                        case "AF":
+                            AddFlower();
+                            break;
                         case "L":
                             LogOut();
                             break;
-                        case "D":
+                        case "DU":
                             DeleteUser();
+                            break;
+                        case "FL":
+                            FlowerList();
+                            break;
+                        case "UFP":
+                            UpdateFlowerPrice();
+                            break;
+                        case "UFQ":
+                            UpdateFlowerQuantity();
+                            break;
+                        case "DF":
+                            DeleteFlower();
                             break;
                         default:
                             break;
@@ -88,6 +103,43 @@ namespace FlowerShop.ConsoleApi
                     Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private void DeleteFlower()
+        {
+            Console.Write("Enter flower name: ");
+            string flowerName = Console.ReadLine();
+            flowerService.DeleteFlower(flowerName);
+            Console.WriteLine("Flower deleted");
+        }
+
+        private void UpdateFlowerQuantity()
+        {
+            Console.Write("Enter flower name: ");
+            string flowerName = Console.ReadLine();
+            Console.Write("Enter new flower quantity: ");
+            string newQuantity = Console.ReadLine();
+            flowerService.UpdateFlowerQuantity(flowerName, newQuantity);
+        }
+
+        private void UpdateFlowerPrice()
+        {
+            Console.Write("Enter flower name: ");
+            string flowerName = Console.ReadLine();
+            Console.Write("Enter new flower price: ");
+            string newPrice = Console.ReadLine();
+            flowerService.UpdateFlowerPrice(flowerName, newPrice);
+        }
+
+        private void AddFlower()
+        {
+            Console.Write("Enter flower name: ");
+            string flowerName = Console.ReadLine();
+            Console.Write("Enter flower price: ");
+            string flowerPrice = Console.ReadLine();
+            Console.Write("Enter flower quantity: ");
+            string flowerQuantity = Console.ReadLine();
+            flowerService.AddFlower(flowerName, flowerPrice, flowerQuantity);
         }
 
         private void DeleteUser()

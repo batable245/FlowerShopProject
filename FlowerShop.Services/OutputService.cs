@@ -53,7 +53,7 @@ namespace FlowerShop.Services
 
             foreach (var sale in sales)
             {
-                sb.AppendLine($"| {sale.Id, -5} | {sale.Quantity, -10} | {sale.Flower, -25} |");
+                sb.AppendLine($"| {sale.Id, -5} | {sale.Quantity, -10} | {sale.Flower.Name, -25} |");
                 sb.AppendLine(Border(header.Length));
             }
             return sb.ToString().TrimEnd();

@@ -66,12 +66,13 @@ namespace FlowerShop.Services
         {
             User user = userService.GetUserByUsername(username);
             ICollection<FlowerSale> flowerSales = context.FlowerSales.Where(x => x.User.Id == user.Id).ToList();
-            //ICollection<FlowerSale> flowerSale = context.FlowerSales.Where(x => x.Flower.Id == 1).ToList();
-            //var flowerSale1 = context.FlowerSales.Where(x => x.Flower.Id == 1);
-            //foreach (var sale in flowerSale1)
-            //{
-            //    Console.WriteLine("sale");
-            //}
+            List<Flower> allFlowers = context.Flowers.ToList();
+            foreach (var sale in flowerSales)
+            {
+                var flower = allFlowers.Where(x => x.Id == sale.FlowerId).First();
+                sale.Flower = flower;
+
+            }
 
             return flowerSales;
         }

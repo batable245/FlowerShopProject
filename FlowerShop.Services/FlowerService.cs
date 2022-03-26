@@ -5,6 +5,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System;
+    using Microsoft.EntityFrameworkCore;
+
     public class FlowerService : IFlowerService
     {
         private readonly AppDbContext context;
@@ -14,7 +16,12 @@
         }
         public Flower GetFlowerByName(string name)
         {
-            return this.context.Flowers.FirstOrDefault(x => x.Name == name);
+            Flower flower = this.context.Flowers.FirstOrDefault(x => x.Name == name);
+            if (flower != null)
+            {
+                context.Entry(flower).State = EntityState.Detached;
+            }
+            return flower;
         }
 
         public ICollection<Flower> GetAllFlowersNames(int page = 1, int itemsPerPage = 10)
@@ -22,11 +29,14 @@
             return this.context.Flowers
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
+                .AsNoTracking()
                 .ToList();
         }
-        public void AddFlower(string name, string price, int quantity)
+
+        public void AddFlower(string name, string price, string quantity)
         {
-            if (string.IsNullOrWhiteSpace(name) || !double.TryParse(price, out _))
+
+            if (string.IsNullOrWhiteSpace(name) || !double.TryParse(price, out _) || !int.TryParse(quantity, out _))
             {
                 throw new ArgumentException("Invalid flower params!");
             }
@@ -38,11 +48,12 @@
             {
                 Name = name,
                 Price = double.Parse(price),
-                Quantity = quantity
+                Quantity = int.Parse(quantity)
             };
             context.Flowers.Add(flower);
             context.SaveChanges();
         }
+
         public void DeleteFlower(string name)
         {
             Flower flower = GetFlowerByName(name);
@@ -50,13 +61,15 @@
             {
                 throw new Exception("Flower not found");
             }
+            context.Flowers.Attach(flower);
             context.Flowers.Remove(flower);
             context.SaveChanges();
 
         }
+
         public ICollection<Flower> GetAllFlowers()
         {
-            return this.context.Flowers.ToList();
+            return this.context.Flowers.AsNoTracking().ToList();
         }
 #nullable enable
         public void UpdateFlower(string searchname, string? name = null,
@@ -101,6 +114,7 @@
             Flower flower = GetFlowerByName(flowerName);
             double price = double.Parse(newPrice);
             flower.Price = price;
+            context.Update(flower);
             context.SaveChanges();
         }
 
@@ -110,13 +124,14 @@
             {
                 throw new ArgumentException("Flower not found");
             }
-            if (string.IsNullOrWhiteSpace(newQuantity) || !double.TryParse(newQuantity, out _) || double.Parse(newQuantity) <= 0)
+            if (string.IsNullOrWhiteSpace(newQuantity) || !int.TryParse(newQuantity, out _) || int.Parse(newQuantity) <= 0)
             {
                 throw new ArgumentException("Invalid flower quantity");
             }
             Flower flower = GetFlowerByName(flowerName);
             int quantity = int.Parse(newQuantity);
             flower.Quantity = quantity;
+            context.Update(flower);
             context.SaveChanges();
         }
         

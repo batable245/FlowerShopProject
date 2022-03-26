@@ -15,8 +15,10 @@ namespace FlowerShop.Models
 
         [Required]
         public int Quantity { get; set; }
-        public User User { get; set; }
-        public Flower Flower { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+        public int FlowerId { get; set; }
+        public virtual Flower Flower { get; set; }
 
     }
 }

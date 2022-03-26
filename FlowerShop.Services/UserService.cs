@@ -119,7 +119,6 @@ namespace FlowerShop.Services
             Console.WriteLine("User created!");
         }
 
-
         public void DeleteUserById(int id)
         {
             try
@@ -185,7 +184,7 @@ namespace FlowerShop.Services
             User user = this.context.Users.Where(x => x.Username == username).FirstOrDefault();
             if (user != null)
             {
-                //context.Entry(user).State = EntityState.Detached;
+                context.Entry(user).State = EntityState.Detached;
             }
             return user;
         }

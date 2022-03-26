@@ -29,9 +29,9 @@ namespace FlowerShop.Data
                 .IsUnique();
 
             //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.FlowerSales)
-            //    .WithOne(e => e.User)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            //    //.HasMany(e => e.FlowerSales)
+            //    //.WithOne(e => e.User)
+            //    //.OnDelete(DeleteBehavior.Cascade);
 
             //do flower cascade operation
         }
