@@ -55,7 +55,7 @@ namespace FlowerShop.ConsoleApi
             }
         }
 
-        public void AdminPage() //implement functions for flower etc... (He will check all users and edit the flowers)
+        public void AdminPage() 
         {
             while (true)
             {
@@ -65,7 +65,6 @@ namespace FlowerShop.ConsoleApi
                     {
                         break;
                     }
-                    //Add methods DeleteFlower()
                     Console.Write("Select U (Show app users), AF (Add flower), FL (Flower list), UFP (Update flower price), UFQ (Update flower quantity), DU (Delete user), DF (Delete flower), L (Logout): ");
                     string option = Console.ReadLine().ToUpper();
                     switch (option)
